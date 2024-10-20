@@ -11,7 +11,7 @@ class Onboard {
     required this.subtitle,
   });
 
-  List<Onboard> onboardDetails = [
+  static List<Onboard> onboardList = [
     Onboard(
       image: Images.onboard1,
       title: 'make a list of\nvisions',

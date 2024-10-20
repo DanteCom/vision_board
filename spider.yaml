@@ -33,6 +33,6 @@ groups:
   - path: assets/images
     class_name: Images
     types: [ .png, .jpg, .jpeg, .webp, .webm, .bmp ]
-  - path: assets/images
+  - path: assets/vectors
     class_name: Vectors
     types: [ .svg ]
