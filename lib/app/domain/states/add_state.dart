@@ -1,10 +1,12 @@
-import 'package:intl/intl.dart';
+import 'package:vision_board/app/ui/widgets/app_cupertino_alert_dialog.dart';
 import 'package:vision_board/app/ui/screens/crop/crop_image_screen.dart';
 import 'package:vision_board/app/domain/models/vision.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+import 'package:intl/intl.dart';
 import 'dart:typed_data';
 
 class AddState extends ChangeNotifier {
@@ -76,7 +78,22 @@ class AddState extends ChangeNotifier {
   void addImage(BuildContext context) async {
     bool permission = await Permission.photos.request().isDenied;
 
-    if (permission) return;
+    if (permission) {
+      if (context.mounted) {
+        showCupertinoDialog(
+          context: context,
+          builder: (context) => AppCupertinoAlertDioalg(
+            title: 'No Access to Your Photos',
+            content:
+                'Allow access to your photos so you\ncould visualize your dreams',
+            firstButtonText: 'Cancel',
+            secondButtonText: 'Settings',
+            onPressed: () => openAppSettings(),
+          ),
+        );
+      }
+      return;
+    }
 
     XFile? imageXFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
