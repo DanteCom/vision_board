@@ -235,7 +235,6 @@ class _EditScreenState extends State<EditScreen> {
                             ? () {
                                 state.editVision(state.vision!.id);
                                 Navigator.pop(context);
-                                Navigator.pop(context);
                               }
                             : null,
                         text: 'Save',

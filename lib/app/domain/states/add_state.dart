@@ -114,13 +114,11 @@ class AddState extends ChangeNotifier {
   // Edit Vision
 
   void editVision(String id) {
-    final newVision = Vision(
-      id: id,
-      image: _image!,
+    final newVision = vision!.copyWith(
+      image: _image,
       title: _titleController.text.trim(),
       note: _noteController.text.trim(),
       date: _dateTime,
-      isFulfilled: false,
     );
     newVision.addAndUpdate();
   }
