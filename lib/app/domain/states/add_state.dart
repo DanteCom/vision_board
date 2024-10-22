@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:vision_board/app/ui/screens/crop/crop_image_screen.dart';
 import 'package:vision_board/app/domain/models/vision.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -36,12 +37,17 @@ class AddState extends ChangeNotifier {
   int get currentPage => _currentPage;
 
   // Save Vission
+  final fromatter = DateFormat('dd MMM yyyy');
 
-  bool get saveActive =>
-      vision!.image != _image && _image != null ||
-      vision!.title != _titleController.text.trim() ||
-      vision!.note != _noteController.text.trim() ||
-      vision!.date != _dateTime;
+  bool get testImage => _image != null && vision!.image != _image;
+  bool get testTitle =>
+      _titleController.text.trim().isNotEmpty &&
+      vision!.title != _titleController.text.trim();
+  bool get testNote => vision!.note != _noteController.text;
+  bool get testDate =>
+      fromatter.format(vision!.date) != fromatter.format(dateTime!);
+
+  bool get saveActive => testImage || testTitle || testNote || testDate;
 
   // Pages is Active
 
@@ -113,7 +119,7 @@ class AddState extends ChangeNotifier {
 
   // Edit Vision
 
-  void editVision(String id) {
+  void editVision(BuildContext context, String id) {
     final newVision = vision!.copyWith(
       image: _image,
       title: _titleController.text.trim(),
@@ -121,6 +127,7 @@ class AddState extends ChangeNotifier {
       date: _dateTime,
     );
     newVision.addAndUpdate();
+    Navigator.pop(context);
   }
 
   // Delete Vision

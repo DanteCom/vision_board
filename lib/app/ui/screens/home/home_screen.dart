@@ -52,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<HomeState>();
+    final visions = state.visionsList;
     return Scaffold(
       body: SafeArea(
         top: false,
@@ -114,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               runSpacing: 12,
                               children: [
                                 ...List.generate(
-                                  state.visionsList.length,
+                                  visions.length,
                                   (index) => MultiProvider(
                                     providers: [
                                       ChangeNotifierProvider(
@@ -124,10 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         create: (context) => HomeState(),
                                       )
                                     ],
-                                    child: VisionCard(
-                                      index: index,
-                                      vision: state.visionsList[index],
-                                    ),
+                                    child: VisionCard(vision: visions[index]),
                                   ),
                                 ),
                               ],

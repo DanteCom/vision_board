@@ -1,6 +1,5 @@
 import 'package:vision_board/app/ui/widgets/app_cupertino_alert_dialog.dart';
 import 'package:vision_board/app/ui/screens/edit/edit_screen.dart';
-import 'package:vision_board/app/domain/states/home_state.dart';
 import 'package:vision_board/app/domain/states/add_state.dart';
 import 'package:vision_board/app/domain/models/vision.dart';
 import 'package:vision_board/resources/resources.dart';
@@ -14,13 +13,9 @@ import 'package:intl/intl.dart';
 import 'package:gap/gap.dart';
 
 class CustomModalBottomSheet extends StatefulWidget {
-  final HomeState homeState;
   final Vision vision;
-  final int index;
   const CustomModalBottomSheet({
     super.key,
-    required this.homeState,
-    required this.index,
     required this.vision,
   });
 
@@ -34,13 +29,13 @@ class _CustomModalBottomSheetState extends State<CustomModalBottomSheet> {
   late bool isFulfilled;
   void changeFulfilled() async {
     isFulfilled = !isFulfilled;
-    widget.homeState.visionsList[widget.index].isGoalFulfilled();
+    widget.vision.isGoalFulfilled(isFulfilled);
     setState(() {});
   }
 
   @override
   void initState() {
-    isFulfilled = widget.homeState.visionsList[widget.index].isFulfilled;
+    isFulfilled = widget.vision.isFulfilled;
     _controller.addListener(() {
       isShadow = _controller.position.pixels > 5;
       setState(() {});
@@ -123,15 +118,14 @@ class _CustomModalBottomSheetState extends State<CustomModalBottomSheet> {
                                       borderRadius: BorderRadius.circular(100),
                                       child: SvgPicture.asset(Vectors.pen),
                                       onPressed: () {
+                                        Navigator.pop(context);
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) {
-                                              final vision = widget.homeState
-                                                  .visionsList[widget.index];
                                               return ChangeNotifierProvider(
                                                 create: (context) => AddState(
-                                                  vision: vision,
+                                                  vision: widget.vision,
                                                 ),
                                                 child: const EditScreen(),
                                               );
@@ -157,8 +151,7 @@ class _CustomModalBottomSheetState extends State<CustomModalBottomSheet> {
                                           secondButtonText: 'Delete',
                                           onPressed: () => state.deleteVision(
                                             context,
-                                            widget.homeState
-                                                .visionsList[widget.index].id,
+                                            widget.vision.id,
                                           ),
                                         ),
                                       ),

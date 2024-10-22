@@ -54,8 +54,8 @@ class Vision {
     await box.delete(id);
   }
 
-  Future<void> isGoalFulfilled() async {
-    copyWith(isFulfilled: !isFulfilled).addAndUpdate();
+  Future<void> isGoalFulfilled(bool newValue) async {
+    copyWith(isFulfilled: newValue).addAndUpdate();
   }
 
   Map<String, dynamic> toJson() => _$VisionToJson(this);

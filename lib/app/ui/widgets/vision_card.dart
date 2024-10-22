@@ -12,9 +12,8 @@ import 'package:intl/intl.dart';
 import 'package:gap/gap.dart';
 
 class VisionCard extends StatelessWidget {
-  const VisionCard({super.key, required this.index, required this.vision});
+  const VisionCard({super.key, required this.vision});
   final Vision vision;
-  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +28,7 @@ class VisionCard extends StatelessWidget {
           context: context,
           builder: (context) => ChangeNotifierProvider(
             create: (context) => AddState(),
-            child: CustomModalBottomSheet(
-              vision: vision,
-              homeState: context.watch(),
-              index: index,
-            ),
+            child: CustomModalBottomSheet(vision: vision),
           ),
         ),
         child: Column(

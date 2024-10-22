@@ -232,10 +232,7 @@ class _EditScreenState extends State<EditScreen> {
                       right: 77,
                       child: AppButton(
                         onPressed: state.saveActive
-                            ? () {
-                                state.editVision(state.vision!.id);
-                                Navigator.pop(context);
-                              }
+                            ? () => state.editVision(context, state.vision!.id)
                             : null,
                         text: 'Save',
                         icon: Vectors.check,
