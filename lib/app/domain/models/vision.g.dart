@@ -11,7 +11,7 @@ Vision _$VisionFromJson(Map<String, dynamic> json) => Vision(
       image: Uint8List.fromList((json['image']) as List<int>),
       title: json['title'] as String,
       note: json['note'] as String?,
-      date: json['date'] as String,
+      date: json['date'] as DateTime,
       isFulfilled: json['isFulfilled'] as bool,
     );
 

@@ -12,10 +12,9 @@ dependencies:
     sdk: flutter
 
 
-  flutter_native_splash: ^2.3.11
   permission_handler: ^11.3.1
   cupertino_icons: ^1.0.2
-  crop_your_image: ^1.1.0
+  crop_your_image: ^0.7.5
   json_annotation: ^4.9.0
   flutter_svg: ^2.0.10+1
   in_app_review: ^2.0.9
@@ -24,7 +23,9 @@ dependencies:
   share_plus: ^7.2.2
   provider: ^6.1.2
   sizer: ^2.0.15
+  intl: ^0.19.0
   hive: ^2.2.3
+  uuid: ^4.5.1
   gap: ^3.0.1
 
 dev_dependencies:

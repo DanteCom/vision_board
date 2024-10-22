@@ -1,3 +1,4 @@
+import 'package:vision_board/app/ui/screens/limit/limit_screen.dart';
 import 'package:vision_board/app/ui/screens/home/home_screen.dart';
 import 'package:vision_board/app/ui/theme/app_text_styles.dart';
 import 'package:vision_board/app/domain/models/onboard.dart';
@@ -23,6 +24,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
 
   void changePage(BuildContext context) async {
     final isAvailable = await _inAppReview.isAvailable();
+    final subscribed = await box.get('subscribed', defaultValue: false);
     if (currentPage == 1 && isAvailable) {
       _inAppReview.requestReview();
     }
@@ -32,8 +34,32 @@ class _OnboardScreenState extends State<OnboardScreen> {
         Navigator.pushReplacement(
           context,
           PageRouteBuilder(
-            pageBuilder: (context, animation1, animation2) =>
-                const HomeScreen(),
+            pageBuilder: (context, animation1, animation2) => subscribed
+                ? const HomeScreen()
+                : LimitScreen(
+                    onContinue: () {
+                      if (context.mounted) {
+                        Navigator.pushReplacement(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (context, animation1, animation2) =>
+                                const HomeScreen(),
+                            transitionDuration: Duration.zero,
+                            reverseTransitionDuration: Duration.zero,
+                          ),
+                        );
+                      }
+                    },
+                    onPressed: () => Navigator.pushReplacement(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) =>
+                            const HomeScreen(),
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    ),
+                  ),
             transitionDuration: Duration.zero,
             reverseTransitionDuration: Duration.zero,
           ),

@@ -5,13 +5,11 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static final appTheme = ThemeData(
     fontFamily: 'WorkSans',
-    colorScheme: const ColorScheme.light(
-      background: AppColors.white,
-    ),
+    scaffoldBackgroundColor: AppColors.white,
   );
 
   static final titleTextFieldDecoration = InputDecoration(
-    contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
     hintText: 'Vision Name',
     hintStyle: AppTextStyles.s14w400ws,
     enabledBorder: OutlineInputBorder(
@@ -30,7 +28,7 @@ class AppTheme {
 
   static final noteTextFieldDecoration = InputDecoration(
     contentPadding: const EdgeInsets.all(16),
-    hintText: 'Vision Name',
+    hintText: 'Text note',
     hintStyle: AppTextStyles.s14w400ws.copyWith(color: AppColors.black40),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(24),
@@ -44,5 +42,12 @@ class AppTheme {
       borderRadius: BorderRadius.circular(24),
       borderSide: BorderSide(color: AppColors.black20),
     ),
+  );
+
+  static final containerShadow = BoxShadow(
+    blurRadius: 20,
+    spreadRadius: 0,
+    offset: const Offset(0, 10),
+    color: AppColors.black.withOpacity(0.05),
   );
 }

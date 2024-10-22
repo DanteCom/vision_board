@@ -20,6 +20,12 @@ class AppTextStyles {
     color: AppColors.black60,
   );
 
+  static final s22w600ws = TextStyle(
+    fontSize: 22,
+    fontWeight: FontWeight.w600,
+    color: AppColors.black90,
+  );
+
   static final s20w400ws = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w400,
@@ -29,14 +35,14 @@ class AppTextStyles {
   static const s17w600sf = TextStyle(
     fontSize: 17,
     fontWeight: FontWeight.w600,
-    fontFamily: '.SF Pro Text',
+    fontFamily: '.SF UI Text',
     color: AppColors.black,
   );
 
   static const s17w400sf = TextStyle(
     fontSize: 17,
     fontWeight: FontWeight.w400,
-    fontFamily: '.SF Pro Text',
+    fontFamily: '.SF UI Text',
     color: AppColors.blue,
   );
 
@@ -46,10 +52,10 @@ class AppTextStyles {
     color: AppColors.white,
   );
 
-  static const s16w400ws = TextStyle(
+  static final s16w400ws = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
-    color: AppColors.white,
+    color: AppColors.black60,
   );
 
   static final s14w400ws = TextStyle(

@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'dart:typed_data';
 part 'vision.g.dart';
 
@@ -8,7 +9,7 @@ class Vision {
   final Uint8List image;
   final String title;
   final String? note;
-  final String date;
+  final DateTime date;
   final bool isFulfilled;
 
   Vision({
@@ -25,7 +26,7 @@ class Vision {
     Uint8List? image,
     String? title,
     String? note,
-    String? date,
+    DateTime? date,
     bool? isFulfilled,
   }) {
     return Vision(
@@ -36,6 +37,25 @@ class Vision {
       date: date ?? this.date,
       isFulfilled: isFulfilled ?? this.isFulfilled,
     );
+  }
+
+  static List<Vision>? getAll() {
+    final visions = Hive.box('vision').values;
+    return visions.map((vision) => Vision.fromJson(Map.from(vision))).toList();
+  }
+
+  Future<void> addAndUpdate() async {
+    final box = Hive.box('vision');
+    await box.put(id, toJson());
+  }
+
+  static Future<void> delete(String id) async {
+    final box = Hive.box('vision');
+    await box.delete(id);
+  }
+
+  Future<void> isGoalFulfilled() async {
+    copyWith(isFulfilled: !isFulfilled).addAndUpdate();
   }
 
   Map<String, dynamic> toJson() => _$VisionToJson(this);

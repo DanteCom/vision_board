@@ -8,9 +8,11 @@ class AppButton extends StatelessWidget {
   const AppButton({
     super.key,
     this.text,
+    this.icon,
     this.onPressed,
   });
   final String? text;
+  final String? icon;
   final VoidCallback? onPressed;
 
   @override
@@ -18,6 +20,7 @@ class AppButton extends StatelessWidget {
     return CupertinoButton(
       padding: const EdgeInsets.symmetric(vertical: 16),
       color: AppColors.main,
+      disabledColor: AppColors.mainLight,
       borderRadius: BorderRadius.circular(100),
       onPressed: onPressed,
       child: Row(
@@ -28,7 +31,7 @@ class AppButton extends StatelessWidget {
             style: AppTextStyles.s16w500ws,
           ),
           const Gap(8),
-          SvgPicture.asset(Vectors.arrowRight),
+          SvgPicture.asset(icon ?? Vectors.arrowRight),
         ],
       ),
     );
