@@ -12,7 +12,7 @@ class HomeState extends ChangeNotifier {
 
   void getAllVisions() async {
     visionsList = Vision.getAll() ?? [];
-    visionsList.sort((a, b) => b.date.compareTo(a.date));
+    visionsList.sort((a, b) => b.dateTime.compareTo(a.dateTime));
     notifyListeners();
   }
 

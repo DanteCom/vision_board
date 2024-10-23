@@ -125,7 +125,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         create: (context) => HomeState(),
                                       )
                                     ],
-                                    child: VisionCard(vision: visions[index]),
+                                    child: VisionCard(
+                                      vision: visions[index],
+                                      index: index,
+                                    ),
                                   ),
                                 ),
                               ],

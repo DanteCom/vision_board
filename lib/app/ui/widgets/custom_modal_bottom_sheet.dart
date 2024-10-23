@@ -14,10 +14,9 @@ import 'package:gap/gap.dart';
 
 class CustomModalBottomSheet extends StatefulWidget {
   final Vision vision;
-  const CustomModalBottomSheet({
-    super.key,
-    required this.vision,
-  });
+  final int index;
+  const CustomModalBottomSheet(
+      {super.key, required this.vision, required this.index});
 
   @override
   State<CustomModalBottomSheet> createState() => _CustomModalBottomSheetState();
@@ -27,10 +26,10 @@ class _CustomModalBottomSheetState extends State<CustomModalBottomSheet> {
   final _controller = ScrollController();
   bool isShadow = false;
   late bool isFulfilled;
-  void changeFulfilled() async {
+  void changeFulfilled() {
     isFulfilled = !isFulfilled;
-    widget.vision.isGoalFulfilled(isFulfilled);
     setState(() {});
+    widget.vision.isGoalFulfilled(isFulfilled);
   }
 
   @override
@@ -175,7 +174,8 @@ class _CustomModalBottomSheetState extends State<CustomModalBottomSheet> {
                                       ),
                                       const Gap(4),
                                       Text(
-                                        formatter.format(widget.vision.date),
+                                        formatter
+                                            .format(widget.vision.dateTime),
                                         style: AppTextStyles.s20w400ws,
                                       ),
                                     ],

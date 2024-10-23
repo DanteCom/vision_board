@@ -16,7 +16,7 @@ class AddState extends ChangeNotifier {
       _image = vision!.image;
       _titleController.text = vision!.title;
       _noteController.text = vision!.note;
-      _dateTime = vision!.date;
+      _dateTime = vision!.dateTime;
     }
   }
 
@@ -47,7 +47,7 @@ class AddState extends ChangeNotifier {
       vision!.title != _titleController.text.trim();
   bool get testNote => vision!.note != _noteController.text;
   bool get testDate =>
-      fromatter.format(vision!.date) != fromatter.format(dateTime!);
+      fromatter.format(vision!.dateTime) != fromatter.format(dateTime!);
 
   bool get saveActive => testImage || testTitle || testNote || testDate;
 
@@ -128,7 +128,7 @@ class AddState extends ChangeNotifier {
       image: _image!,
       title: _titleController.text.trim(),
       note: _noteController.text.trim(),
-      date: _dateTime,
+      dateTime: _dateTime,
       isFulfilled: false,
     );
     newVision.addAndUpdate();
@@ -141,7 +141,7 @@ class AddState extends ChangeNotifier {
       image: _image,
       title: _titleController.text.trim(),
       note: _noteController.text.trim(),
-      date: _dateTime,
+      dateTime: _dateTime,
     );
     newVision.addAndUpdate();
     Navigator.pop(context);

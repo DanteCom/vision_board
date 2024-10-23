@@ -7,7 +7,7 @@ class Vision {
   Uint8List image;
   String title;
   String note;
-  DateTime date;
+  DateTime dateTime;
   bool isFulfilled;
 
   Vision({
@@ -15,7 +15,7 @@ class Vision {
     required this.image,
     required this.title,
     required this.note,
-    required this.date,
+    required this.dateTime,
     required this.isFulfilled,
   });
 
@@ -24,7 +24,7 @@ class Vision {
     Uint8List? image,
     String? title,
     String? note,
-    DateTime? date,
+    DateTime? dateTime,
     bool? isFulfilled,
   }) {
     return Vision(
@@ -32,27 +32,25 @@ class Vision {
       image: image ?? this.image,
       title: title ?? this.title,
       note: note ?? this.note,
-      date: date ?? this.date,
+      dateTime: dateTime ?? this.dateTime,
       isFulfilled: isFulfilled ?? this.isFulfilled,
     );
   }
 
   static List<Vision>? getAll() {
     final visions = Hive.box('vision').values;
-    return visions.map((vision) => Vision.fromJson(vision)).toList();
+    return visions.map((vision) => Vision.fromJson(Map.from(vision))).toList();
   }
 
   Future<void> addAndUpdate() async {
-    final box = Hive.box('vision');
-    await box.put(id, toJson());
+    await Hive.box('vision').put(id, toJson());
   }
 
   static Future<void> delete(String id) async {
-    final box = Hive.box('vision');
-    await box.delete(id);
+    await Hive.box('vision').delete(id);
   }
 
-  Future<void> isGoalFulfilled(bool newValue) async {
+  void isGoalFulfilled(bool newValue) {
     copyWith(isFulfilled: newValue).addAndUpdate();
   }
 
@@ -62,7 +60,7 @@ class Vision {
       'image': image.toList(),
       'title': title,
       'note': note,
-      'date': date.millisecondsSinceEpoch,
+      'dateTime': dateTime.millisecondsSinceEpoch,
       'isFulfilled': isFulfilled,
     };
   }
@@ -73,7 +71,7 @@ class Vision {
       image: Uint8List.fromList(map['image']),
       title: map['title'] as String,
       note: map['note'] as String,
-      date: DateTime.fromMillisecondsSinceEpoch(map['date'] as int),
+      dateTime: DateTime.fromMillisecondsSinceEpoch(map['dateTime']),
       isFulfilled: map['isFulfilled'] as bool,
     );
   }

@@ -1,3 +1,4 @@
+import 'package:vision_board/app/domain/states/home_state.dart';
 import 'package:vision_board/app/ui/widgets/custom_modal_bottom_sheet.dart';
 import 'package:vision_board/app/domain/states/add_state.dart';
 import 'package:vision_board/app/domain/models/vision.dart';
@@ -12,8 +13,9 @@ import 'package:intl/intl.dart';
 import 'package:gap/gap.dart';
 
 class VisionCard extends StatelessWidget {
-  const VisionCard({super.key, required this.vision});
+  const VisionCard({super.key, required this.vision, required this.index});
   final Vision vision;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +28,12 @@ class VisionCard extends StatelessWidget {
           isScrollControlled: true,
           backgroundColor: Colors.transparent,
           context: context,
-          builder: (context) => ChangeNotifierProvider(
-            create: (context) => AddState(),
-            child: CustomModalBottomSheet(vision: vision),
+          builder: (context) => MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (context) => AddState()),
+              ChangeNotifierProvider(create: (context) => HomeState())
+            ],
+            child: CustomModalBottomSheet(vision: vision, index: index),
           ),
         ),
         child: Column(
@@ -68,7 +73,7 @@ class VisionCard extends StatelessWidget {
             ),
             const Gap(8),
             Text(
-              formatter.format(vision.date),
+              formatter.format(vision.dateTime),
               style: AppTextStyles.s12w400ws,
             ),
             const Gap(4),
