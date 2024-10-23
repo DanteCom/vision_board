@@ -58,7 +58,8 @@ class _TitleSNotePageState extends State<TitleSNotePage> {
           padding: EdgeInsets.zero,
           onPressed: subscribed
               ? null
-              : () => Navigator.push(
+              : () {
+                  Navigator.push(
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation1, animation2) =>
@@ -67,7 +68,8 @@ class _TitleSNotePageState extends State<TitleSNotePage> {
                         onContinue: () => Navigator.pop(context),
                       ),
                     ),
-                  ),
+                  );
+                },
           child: Column(
             children: [
               Padding(

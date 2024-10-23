@@ -58,8 +58,8 @@ class _CropImageState extends State<CropImageScreen> {
                         ),
                         child: Crop(
                           controller: _cropController,
-                          initialSize: 1,
                           fixArea: true,
+                          initialSize: 1,
                           interactive: true,
                           initialAreaBuilder: (rect) => Rect.fromLTRB(
                               rect.left, rect.top, rect.right, rect.bottom),

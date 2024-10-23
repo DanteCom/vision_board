@@ -1,16 +1,14 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'dart:typed_data';
-part 'vision.g.dart';
 
-@JsonSerializable()
+import 'package:hive/hive.dart';
+
 class Vision {
-  final String id;
-  final Uint8List image;
-  final String title;
-  final String? note;
-  final DateTime date;
-  final bool isFulfilled;
+  String id;
+  Uint8List image;
+  String title;
+  String note;
+  DateTime date;
+  bool isFulfilled;
 
   Vision({
     required this.id,
@@ -41,7 +39,7 @@ class Vision {
 
   static List<Vision>? getAll() {
     final visions = Hive.box('vision').values;
-    return visions.map((vision) => Vision.fromJson(Map.from(vision))).toList();
+    return visions.map((vision) => Vision.fromJson(vision)).toList();
   }
 
   Future<void> addAndUpdate() async {
@@ -58,7 +56,25 @@ class Vision {
     copyWith(isFulfilled: newValue).addAndUpdate();
   }
 
-  Map<String, dynamic> toJson() => _$VisionToJson(this);
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'id': id,
+      'image': image.toList(),
+      'title': title,
+      'note': note,
+      'date': date.millisecondsSinceEpoch,
+      'isFulfilled': isFulfilled,
+    };
+  }
 
-  factory Vision.fromJson(Map<String, dynamic> json) => _$VisionFromJson(json);
+  factory Vision.fromJson(Map<String, dynamic> map) {
+    return Vision(
+      id: map['id'] as String,
+      image: Uint8List.fromList(map['image']),
+      title: map['title'] as String,
+      note: map['note'] as String,
+      date: DateTime.fromMillisecondsSinceEpoch(map['date'] as int),
+      isFulfilled: map['isFulfilled'] as bool,
+    );
+  }
 }

@@ -15,7 +15,7 @@ class AddState extends ChangeNotifier {
     if (vision != null) {
       _image = vision!.image;
       _titleController.text = vision!.title;
-      _noteController.text = vision!.note ?? '';
+      _noteController.text = vision!.note;
       _dateTime = vision!.date;
     }
   }

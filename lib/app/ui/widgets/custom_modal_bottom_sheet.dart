@@ -208,7 +208,7 @@ class _CustomModalBottomSheetState extends State<CustomModalBottomSheet> {
                       ).copyWith(bottom: 100),
                       children: [
                         Text(
-                          widget.vision.note ?? '',
+                          widget.vision.note,
                           style: AppTextStyles.s14w400ws,
                           overflow: TextOverflow.clip,
                         ),

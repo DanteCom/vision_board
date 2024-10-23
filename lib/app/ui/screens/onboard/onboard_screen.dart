@@ -79,7 +79,10 @@ class _OnboardScreenState extends State<OnboardScreen> {
         top: false,
         child: Column(
           children: [
-            Image.asset(onboard.image),
+            Image.asset(
+              onboard.image,
+              fit: BoxFit.cover,
+            ),
             Expanded(
               child: Padding(
                 padding:

@@ -1,3 +1,4 @@
+import 'package:sizer/sizer.dart';
 import 'package:vision_board/resources/resources.dart';
 import 'package:vision_board/app/ui/theme/theme.dart';
 import 'package:flutter/cupertino.dart';
@@ -39,11 +40,16 @@ class _LimitScreenState extends State<LimitScreen> {
     return Scaffold(
       body: SafeArea(
         top: false,
-        child: Column(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          physics: const RangeMaintainingScrollPhysics(),
           children: [
             Stack(
               children: [
-                Image.asset(Images.onboard4),
+                Image.asset(
+                  Images.onboard4,
+                  fit: BoxFit.cover,
+                ),
                 Positioned(
                   top: 16,
                   right: 16,
@@ -57,56 +63,53 @@ class _LimitScreenState extends State<LimitScreen> {
                 ),
               ],
             ),
-            Expanded(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 38)
-                        .copyWith(top: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Gap(8),
-                    Text(
-                      'make all your\ndreams a reality'.toUpperCase(),
-                      style: AppTextStyles.s32w500ws.copyWith(
-                        color: AppColors.black,
-                        height: 1.2,
-                      ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 38)
+                  .copyWith(top: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Gap(8),
+                  Text(
+                    'make all your\ndreams a reality'.toUpperCase(),
+                    style: AppTextStyles.s32w500ws.copyWith(
+                      color: AppColors.black,
+                      height: 1.2,
                     ),
-                    const Gap(12),
-                    Text(
-                      'Unlock all app features for just\n\$2.99/week',
-                      style: AppTextStyles.s14w400ws,
+                  ),
+                  const Gap(12),
+                  Text(
+                    'Unlock all app features for just\n\$2.99/week',
+                    style: AppTextStyles.s14w400ws,
+                  ),
+                  SizedBox(height: SizerUtil.height / 5 / 9),
+                  SizedBox(
+                    width: double.infinity,
+                    child: CupertinoButton(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      color: AppColors.main,
+                      disabledColor: AppColors.main,
+                      borderRadius: BorderRadius.circular(100),
+                      onPressed:
+                          isContinueActive ? null : () => continueActived(),
+                      child: isContinueActive
+                          ? const CircularProgressIndicator.adaptive(
+                              backgroundColor: AppColors.white,
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Continue'.toUpperCase(),
+                                  style: AppTextStyles.s16w500ws,
+                                ),
+                                const Gap(8),
+                                SvgPicture.asset(Vectors.arrowRight),
+                              ],
+                            ),
                     ),
-                    const Spacer(),
-                    SizedBox(
-                      width: double.infinity,
-                      child: CupertinoButton(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        color: AppColors.main,
-                        disabledColor: AppColors.main,
-                        borderRadius: BorderRadius.circular(100),
-                        onPressed:
-                            isContinueActive ? null : () => continueActived(),
-                        child: isContinueActive
-                            ? const CircularProgressIndicator.adaptive(
-                                backgroundColor: AppColors.white,
-                              )
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Continue'.toUpperCase(),
-                                    style: AppTextStyles.s16w500ws,
-                                  ),
-                                  const Gap(8),
-                                  SvgPicture.asset(Vectors.arrowRight),
-                                ],
-                              ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],
